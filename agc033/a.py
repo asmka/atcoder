@@ -11,11 +11,12 @@ for h in range(H):
             F[h][w] = True
             blackList.append((h, w))
 
-ans = 0
+ans = -1
 while blackList:
+    #print('blackList: ', blackList)
     ans += 1
     nextBlack = []
-    for (h, w) in nextBlack:
+    for (h, w) in blackList:
         if h-1 >= 0 and F[h-1][w] == False:
             F[h-1][w] = True
             nextBlack.append((h-1, w))
@@ -25,9 +26,10 @@ while blackList:
         if w-1 >= 0 and F[h][w-1] == False:
             F[h][w-1] = True
             nextBlack.append((h, w-1))
-        if w+1 >= 0 and F[h][w+1] == False:
+        if w+1 < W and F[h][w+1] == False:
             F[h][w+1] = True
             nextBlack.append((h, w+1))
+    #print('nextBlack: ', nextBlack)
     blackList = nextBlack
 
 print(ans)
