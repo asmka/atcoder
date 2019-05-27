@@ -4,12 +4,12 @@ N, Q = map(int, input().split())
 tl = []
 for i in range(N):
     S, T, X = map(int, input().split())
-    tl.append([S-X, '1S', X])
-    tl.append([T-X, '0T', X])
+    tl.append([S-X-0.5, 'S', X])
+    tl.append([T-X-0.5, 'T', X])
 d = []
 for i in range(Q):
     D = int(input())
-    tl.append([D, '2D'])
+    tl.append([D, 'D'])
 
 tl.sort()
 #print(tl)
@@ -19,12 +19,12 @@ Xhp = []
 dX = set()
 for t in tl:
     mode = t[1]
-    if mode == '1S':
+    if mode == 'S':
         X = t[2]
         if X in dX:
             dX.remove(X)
         heappush(Xhp, X)
-    elif mode == '0T':
+    elif mode == 'T':
         X = t[2]
         dX.add(X)
     else:
