@@ -90,7 +90,7 @@ if ysort[-1][1] == 'D' and (Uy or Ly or Ry):
 
 ans = 10**32+1
 for time in t:
-    xl = 10**16 + 1
+    xl = 10**32 + 1
     if Lx:
         xl = min(xl, Lx[0] - time)
     if Rx:
@@ -100,7 +100,7 @@ for time in t:
     if Ux:
         xl = min(xl, Ux[0])
  
-    xr = -(10**16 + 1)
+    xr = -(10**32 + 1)
     if Lx:
         xr = max(xr, Lx[-1] - time)
     if Rx:
@@ -110,7 +110,7 @@ for time in t:
     if Ux:
         xr = max(xr, Ux[-1])
  
-    yd = 10**16 + 1
+    yd = 10**32 + 1
     if Ly:
         yd = min(yd, Ly[0])
     if Ry:
@@ -120,7 +120,7 @@ for time in t:
     if Uy:
         yd = min(yd, Uy[0] + time)
  
-    yu = -(10**16 + 1)
+    yu = -(10**32 + 1)
     if Ly:
         yu = max(yu, Ly[-1])
     if Ry:
