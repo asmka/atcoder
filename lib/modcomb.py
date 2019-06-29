@@ -23,6 +23,8 @@ class ModComb:
         # Return nCr mod m
         if n > self._n_max:
             raise Exception('n is larger than n_max')
+        if r > n:
+            raise Exception('r is larger than n')
 
         if r == 0:
             return 1
