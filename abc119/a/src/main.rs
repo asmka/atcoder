@@ -62,8 +62,14 @@ macro_rules! test {
     ($($input:expr => $output:expr),* $(,)*) => {
         #[test]
         fn solve_test() {
+            let mut i: i32 = 1;
+            println!("");
             $(
+                println!("[case {}]", i);
+                println!("[in]\n{}\n[expected out]\n{}", $input, $output);
+                println!("");
                 assert_eq!(solve($input), $output);
+                i += 1;
             )*
         }
     };
