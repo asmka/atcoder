@@ -63,7 +63,7 @@ rv = []
 rv.extend(r1)
 rv.extend(r2)
 rv.extend(r3)
-for i in enumerate(p):
+for i, _ in enumerate(p):
     if p[i] == 0:
         p[i] = rv.pop()
 
