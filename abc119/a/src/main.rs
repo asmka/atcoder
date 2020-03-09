@@ -1,4 +1,5 @@
 #![allow(non_snake_case)]
+#![feature(concat_idents)]
 
 macro_rules! input {
     (source = $s:expr, $($r:tt)*) => {
@@ -59,26 +60,21 @@ macro_rules! stdin {
 }
 
 macro_rules! test {
-    ($($input:expr => $output:expr),* $(,)*) => {
-        #[test]
-        fn solve_test() {
-            let mut i: i32 = 1;
-            println!("");
-            $(
-                println!("[case {}]", i);
+    ($(($testid:ident, $input:expr) => $output:expr),* $(,)*) => (
+        $(
+            #[test]
+            fn solve_test_$testid() {
                 println!("[in]\n{}\n[expected out]\n{}", $input, $output);
-                println!("");
                 assert_eq!(solve($input), $output);
-                i += 1;
-            )*
-        }
-    };
+            }
+         )*
+    )
 }
 
-test! {
-    "2019/04/30" => "Heisei",
-    "2019/11/01" => "TBD"
-}
+test!(
+    (a, "2019/04/30") => ("Heisei"),
+    (b, "2019/11/01") => ("TBD")
+);
 
 fn main() {
     println!("{}", solve(&stdin!()));
