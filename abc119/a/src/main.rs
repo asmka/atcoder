@@ -60,7 +60,7 @@ macro_rules! stdin {
 }
 
 macro_rules! test {
-    ($(($testid:ident, $input:expr) => $output:expr),* $(,)*) => (
+    ($(($testid:ident/*, $input:expr*/) => $output:expr),* $(,)*) => (
         $(
             #[test]
             fn solve_test_$testid() {
@@ -71,10 +71,26 @@ macro_rules! test {
     )
 }
 
-test!(
-    (a, "2019/04/30") => ("Heisei"),
-    (b, "2019/11/01") => ("TBD")
-);
+/*
+macro_rules! test {
+    ($(($testid:ident, $input:expr) => $output:expr),* $(,)*) => (
+        $(
+            #[test]
+            fn solve_test_$testid() {
+                println!("[in]\n{}\n[expected out]\n{}", $input, $output);
+                assert_eq!(solve($input), $output);
+            }
+         )*
+    )
+}
+*/
+
+/*
+test! {
+    (a, "2019/04/30") => {"Heisei"},
+    (b, "2019/11/01") => {"TBD"}
+}
+*/
 
 fn main() {
     println!("{}", solve(&stdin!()));
