@@ -78,15 +78,20 @@ macro_rules! test {
 }
 
 test! {
-r"8 3 4
-" => r"4",
+r"2
+10000 JPY
+0.10000000 BTC
+" => r"48000",
 
-r"8 0 4
-" => r"0",
-
-r"6 2 4
-" => r"2"
+r"3
+100000000 JPY
+100.00000000 BTC
+0.00000001 BTC
+" => r"138000000.0038"
 }
+
+use std::cmp::max;
+use std::cmp::min;
 
 fn main() {
     println!("{}", solve(&stdin!()));
@@ -95,10 +100,21 @@ fn main() {
 fn solve(src: &str) -> String {
     input! {
         source = src,
-        N: i64,
-        A: i64,
-        B: i64,
+        N: i32,
+        xu: [(f64, String); N]
     }
-    let ans: i64 = A*(N/(A+B)) + std::cmp::min(A, N%(A+B));
-    return ans.to_string();
+
+    const BTC_YEN: f64 = 380000.0;
+
+    let mut sum_yen: f64 = 0.0;
+    for (x, u) in xu {
+        if u == "BTC" {
+            sum_yen += x*BTC_YEN;
+        } else {
+            sum_yen += x;
+        }
+    }
+
+    let ans: String = sum_yen.to_string();
+    return ans;
 }
