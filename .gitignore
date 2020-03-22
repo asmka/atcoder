@@ -1,2 +1,4 @@
 *.out
 target/
+__pycache__/
+.python-version
