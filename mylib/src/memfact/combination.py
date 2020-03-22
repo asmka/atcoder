@@ -1,3 +1,4 @@
+import fractions
 from . import factorial
 MemorizedFactorial = factorial.MemorizedFactorial
 
@@ -14,8 +15,9 @@ class MemorizedCombination:
         m = None
         if len(mv) == 1:
             m = mv[0]
-            if m < 2:
-                raise ValueError(f'Require m >= 2, m: {m}')
+            # Condition of Fermat's little theorem
+            if not (m > n_max and fractions.gcd(m, n_max) == 1):
+                raise ValueError(f'Require m >= n_max and coprime, m: {m}, n_max: {n_max}')
 
         mem_fact = None
         mod_inv_factv = None
