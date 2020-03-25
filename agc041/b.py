@@ -2,7 +2,7 @@ def check_pickedup(N: int, M: int, V: int, P: int, A: list, accum_score: list, i
     th_score = A[P-1]
     if A[i] >= th_score:
         return True
-    sum_surplus = (accum_score[i-1]-accum_score[P-2]) - ((i-1)-(P-2))*A[i]
+    sum_surplus = (accum_score[i-1] - (accum_score[P-2] if P-2 >=0 else 0)) - ((i-1)-(P-2))*A[i]
     #print('i: ', i)
     #print('th_score: ', th_score)
     #print('sum_surplus: ', sum_surplus)
