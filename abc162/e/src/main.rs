@@ -80,8 +80,6 @@ macro_rules! test {
 test! {
 r"3 2
 " => "9",
-r"2 4 
-" => "24",
 
 r"3 200
 " => "10813692",
@@ -110,9 +108,7 @@ fn solve(src: &str) -> String {
         let mod_cnt: u64 = (mod_pow(K/gcd, N, MOD) + MOD - over_mod_cnt(&gcd_mod_cnt, gcd, MOD)) % MOD;
         mod_sum += gcd*mod_cnt;
         mod_sum %= MOD;
-        println!("gcd: {}, mod_cnt: {}", gcd, mod_cnt);
         gcd_mod_cnt[gcd as usize] = mod_cnt;
-        println!("gcd_mod_cnt[{}]: {}", gcd, mod_cnt);
     }
 
     let ans: String = mod_sum.to_string();
@@ -121,23 +117,18 @@ fn solve(src: &str) -> String {
 
 fn over_mod_cnt(gcd_mod_cnt: &Vec<u64>, gcd: u64, mod_val: u64) -> u64 {
     let mut mod_cnt: u64 = 0;
-    let mut checked: Vec<bool> = vec![false; gcd_mod_cnt.len()];
     let mut mul: u64 = gcd + gcd;
-    while mul as usize <= gcd_mod_cnt.len() {
-        if ! checked[mul as usize] {
-            mod_cnt += gcd_mod_cnt[mul as usize];
-            mod_cnt %= mod_val;
-
-            let mut cmul: u64 = mul;
-            while cmul as usize <= gcd_mod_cnt.len() {
-                checked[cmul as usize] = true;
-                cmul += cmul;
-            }
-        }
-        mul += mul;
+    while mul < gcd_mod_cnt.len() as u64 {
+        mod_cnt += gcd_mod_cnt[mul as usize];
+        mod_cnt %= mod_val;
+        mul += gcd;
     }
-    println!("gcd: {}, over_mod_cnt: {}", gcd, mod_cnt);
     return mod_cnt;
+}
+
+#[test]
+fn over_mod_cnt_test() {
+    assert_eq!(5, over_mod_cnt(&vec![0, 0, 3, 1, 1], 1, 7));
 }
 
 fn mod_pow(base: u64, exp: u64, modval: u64) -> u64 {
